@@ -1,20 +1,19 @@
-package com.bugbite.www.tf.activities;
+package com.bugbite.www.tf.activities
 
-import android.content.Intent;
-import android.graphics.Color;
+import android.content.Intent
+import android.graphics.Color
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.bugbite.www.tf.MainActivity;
-import com.bugbite.www.tf.R;
+import com.daimajia.androidanimations.library.Techniques
+import com.bugbite.www.tf.MainActivity
+import com.bugbite.www.tf.R
 
-import wail.splacher.com.splasher.lib.SplasherActivity;
-import wail.splacher.com.splasher.models.SplasherConfig;
-import wail.splacher.com.splasher.utils.Const;
+import wail.splacher.com.splasher.lib.SplasherActivity
+import wail.splacher.com.splasher.models.SplasherConfig
+import wail.splacher.com.splasher.utils.Const
 
-public class SplashActivity extends SplasherActivity {
+class SplashActivity : SplasherActivity() {
 
-    @Override
-    public void initSplasher(SplasherConfig config) {
+    override fun initSplasher(config: SplasherConfig) {
         config.setReveal_start(Const.START_TOP_LEFT) // anitmation type ..
                 //---------------
                 .setAnimationDuration(3000) // Reveal animation duration ..
@@ -31,17 +30,15 @@ public class SplashActivity extends SplasherActivity {
                 //---------------
                 .setSubtitle("cookies...") // subtitle
                 .setSubtitleColor(Color.parseColor("#ffffff")) // subtitle color
-                .setSubtitleAnimation(Techniques.FadeIn) // subtitle animation (from Android View Animations) ..
-                .setSubtitleSize(16); // subtitle text size ..
-                //---------------
+                .setSubtitleAnimation(Techniques.FadeIn).subtitleSize = 16 // subtitle text size ..
+        //---------------
     }
 
-    @Override
-    public void onSplasherFinished() {
+    override fun onSplasherFinished() {
         // tart main activity after animation finished.
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish(); // use to wrap up the current activity so the user can't hit back to it.
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish() // use to wrap up the current activity so the user can't hit back to it.
     }
 
 }

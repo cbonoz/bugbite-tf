@@ -1,7 +1,8 @@
-isCookie
+Bug Bite AI
 ---
 
-isCookie is an android app that tells you whether or not something is a cookie.
+Bug Bite AI is an android app for identifying common bug bites in real time using a trained 
+tensorflow model on your mobile device.
 
 ### Model
 
