@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:camerakit="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- keep screen awake while CameraKitView is active -->
+    <com.camerakit.CameraKitView
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:keepScreenOn="true"
+        app:camera_facing="back"
+        app:camera_flash="auto"
+        app:camera_focus="continuous"
+        app:camera_permissions="camera" />
+
+    <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/folding_cell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        ​
+
+        <FrameLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/result1"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_size_large" />
+
+                <TextView
+                    android:id="@+id/result2"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:id="@+id/result3"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+        </FrameLayout>
+        ​
+
+        <FrameLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@android:color/holo_blue_dark" />
+        </FrameLayout>
+        ​
+    </com.ramotion.foldingcell.FoldingCell>
+
+    <ImageView
+        android:id="@+id/topVolumeView"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="top|start"
+        android:layout_margin="18dp"
+        android:alpha="0.5"
+        android:contentDescription="@string/volume_desc"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/topLogoView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="10dp"
+        android:alpha="0.5"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo_175" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+
+        <LinearLayout
+            android:id="@+id/resultLayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="center|top"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <!--was originally 75x75-->
+            <ImageView
+                android:id="@+id/imageViewResult"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:contentDescription="@string/last_classified_image"
+                android:padding="2dp" />
+
+            <TextView
+                android:id="@+id/textViewResult"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:fadeScrollbars="false"
+                android:gravity="center"
+                android:maxLines="15"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/black" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/shareButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                fancy:fb_borderColor="#FFFFFF"
+                fancy:fb_borderWidth="1dp"
+                fancy:fb_defaultColor="#3b5998"
+                fancy:fb_focusColor="#5577bd"
+                fancy:fb_fontIconResource="@string/icon_share"
+                fancy:fb_fontIconSize="15sp"
+                fancy:fb_iconPosition="right"
+                fancy:fb_radius="30dp"
+                fancy:fb_text="@string/share_result"
+                fancy:fb_textColor="#FFFFFF" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/cameraActionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom|center">
+
+                <Button
+                    android:id="@+id/btnDetectObject"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/detect_object"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:visibility="invisible" />
+
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/loadingSpinner"
+                    style="@style/SpinKitView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"
+                    app:SpinKit_Color="@color/primary" />
+
+            </FrameLayout>
+
+            <!--TODO: readd button if desired-->
+            <Button
+                android:id="@+id/btnToggleCamera"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom|center"
+                android:text="@string/toggle_camera"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

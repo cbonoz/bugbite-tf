@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">Bug Bite AI</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="password_email_sent">password email sent</string>
+    <string name="enter_email">Please enter your email</string>
+    <string name="enter_question">Enter your Question</string>
+
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_register">Register</string>
+    <!--<string name="error_invalid_email">This email address is invalid</string>-->
+    <!--<string name="error_invalid_password">This password is too short</string>-->
+    <string name="auth_failed">Invalid username or password</string>
+    <string name="create_user_success">Success! Please login with your credentials</string>
+    <string name="error_field_required">This field is required</string>
+
+
+    <string name="main_welcome_text">Welcome to Is Cookie</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="about_file">file:///android_asset/about.html</string>
+
+    <string name="loading">Loading…</string>
+    <string name="processing">Predicting your bug bite</string>
+    <string name="not_applicable">N/A</string>
+
+
+    <string name="back_to_menu">Back to Menu</string>
+
+    <!--Error text-->
+    <string name="internet_error">Could not connect to Internet service</string>
+    <string name="connection_error">Connection Error</string>
+    <string name="unknown_error">Unknown error loading page</string>
+    <string name="result_fragment_error">Could not start results page</string>
+
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
+    <string name="done">Done</string>
+    <string name="save">Save</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="clear_history">Clear History</string>
+    <string name="save_and_play">Save and Play</string>
+
+    <string name="camera_error">There was a problem taking the picture, try again.</string>
+    <string name="camera_unsupported">This device doesn\'t support Camera2 API.</string>
+    <string name="camera_permission_required">Camera Permission Required for App</string>
+
+    <string name="toggle_camera">Toggle Camera</string>
+    <string name="detect_object">Detect!</string>
+    <string name="classifier_error">Error: Could not initialize classifier, try again.</string>
+    <string name="share_result_prompt">Share result via</string>
+
+    <!--Font awesome icons-->
+    <string name="icon_share">&#xf064;</string>
+    <string name="share_result">Share Result</string>
+
+    <string name="volume_desc">Toggle Volume</string>
+    <string name="share_failure">Share Failure</string>
+    <string name="share_success">Share Success</string>
+    <string name="empty_result_message">Not sure what this is</string>
+    <string name="taking_new_screenshot">No screenshot available, taking new screenshot</string>
+    <string name="last_classified_image">Last Classified Image</string>
+    <string name="target_item">bug bite</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
