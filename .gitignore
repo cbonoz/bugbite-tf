@@ -2,3 +2,6 @@
 __pycache__/
 convert_old.py
 tensorflow-for-poets-2/
+android/build
+android/.idea
+android/.gradle
