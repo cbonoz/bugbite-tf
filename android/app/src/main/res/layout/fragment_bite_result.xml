@@ -1,71 +1,76 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fancy="http://schemas.android.com/apk/res-auto"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@drawable/background"
+    android:orientation="vertical"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context=".activities.MainActivity"
-    android:background="@drawable/background">
+    tools:context=".activities.MainActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="@string/back_to_camera"
+            android:textSize="@dimen/text_size_medium"
 
-            <mehdi.sakout.fancybuttons.FancyButton
-                android:id="@+id/back_button"
-                android:text="@string/back_to_camera"
-                android:textSize="@dimen/text_size_medium"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                fancy:fb_borderColor="#FFFFFF"
-                fancy:fb_borderWidth="1dp"
+            fancy:fb_borderColor="#FFFFFF"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_defaultColor="#7ab800"
+            fancy:fb_focusColor="#9bd823" />
 
-                fancy:fb_defaultColor="#7ab800"
-                fancy:fb_focusColor="#9bd823"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/main_result_title"
-                android:text="spider"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/space_mono"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:textSize="25sp" />
+        <ImageView
+            android:id="@+id/header_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right"
+            android:src="@drawable/logo_175" />
+    </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/gradientbg"
-                android:padding="25dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
 
-                <!--TODO: replace with result text-->
-                <ImageView
-                    android:id="@+id/ivCaptured"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/logo_175"/>
+    <TextView
+        android:id="@+id/main_result_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/space_mono"
+        android:gravity="center"
+        android:text="spider"
+        android:textColor="@android:color/white"
+        android:textSize="25sp" />
+   </LinearLayout>
 
-            </RelativeLayout>
 
-        </LinearLayout>
-    </ScrollView>
+    <WebView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 
 </LinearLayout>

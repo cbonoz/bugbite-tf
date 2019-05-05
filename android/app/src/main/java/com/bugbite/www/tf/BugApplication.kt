@@ -10,11 +10,6 @@ import org.koin.dsl.module
 
 class BugApplication : Application() {
 
-    // Default parameters.
-    private val model = Classifier.Model.FLOAT
-    private val device = Classifier.Device.CPU
-    private val numThreads = 1
-
     override fun onCreate(){
         super.onCreate()
         startKoin {

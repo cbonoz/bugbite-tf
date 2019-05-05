@@ -8,7 +8,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.media.FaceDetector.Face.CONFIDENCE_THRESHOLD
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
@@ -28,8 +27,6 @@ import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bugbite.www.tf.activities.MainActivity
 import com.bugbite.www.tf.R
-import com.bugbite.www.tf.R.id.btnDetectObject
-import com.bugbite.www.tf.R.id.loadingSpinner
 import com.bugbite.www.tf.activities.helper.ConfettiView
 import com.bugbite.www.tf.models.BugBiteResult
 import com.bugbite.www.tf.utils.ClassificationTaskResult
@@ -56,8 +53,11 @@ import timber.log.Timber
 
 import com.bugbite.www.tf.utils.ImageUtils.NO_BITE_RESULT
 import com.google.gson.Gson
+import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import org.apache.commons.lang3.StringUtils
 import org.koin.android.ext.android.inject
+import java.util.concurrent.TimeUnit
 
 
 class CameraFragment : Fragment(), ConfettiView {
@@ -141,29 +141,30 @@ class CameraFragment : Fragment(), ConfettiView {
         renderResultList()
 
         val biteResult: BugBiteResult = analyzeResult(results)
+        shareButton!!.visibility = View.INVISIBLE
 
         when (biteResult) {
             BugBiteResult.IS_BITE -> {
                 // we have at least one confirming bite result in this case.
                 val color = resources.getColor(R.color.md_red_500)
                 showResultToast("Looks like this could be a ${results!!.get(0).title} bite!", color, R.drawable.x_mark_75)
-                shareButton!!.setBackgroundColor(color)
-                shareButton!!.setText(getString(R.string.see_result))
+                delayResultButton(color, getString(R.string.see_result))
             }
             BugBiteResult.NOT_BITE -> {
                 val color = resources.getColor(R.color.md_green_500)
                 showResultToast("Not a " + getString(R.string.target_item) + "!", color, R.drawable.check_mark_75)
                 generateOnce().animate() // generate confetti.
-                shareButton!!.setBackgroundColor(color)
-                shareButton!!.setText(getString(R.string.share_photo))
+                delayResultButton(color, getString(R.string.share_photo))
             }
             BugBiteResult.NOT_SURE -> {
                 makeToast(getString(R.string.empty_result_message))
+                val color = resources.getColor(R.color.green)
+                showResultButton(color, getString(R.string.share_photo))
             }
         }
 
-
         resultLayout!!.visibility = View.VISIBLE
+
         imageViewResult!!.setImageBitmap(scaledBitmap)
 
         shareButton!!.setOnClickListener { v ->
@@ -182,6 +183,19 @@ class CameraFragment : Fragment(), ConfettiView {
             // Timber.d("hit share button, share message set to: $imageDescription")
         }
         return biteResult
+    }
+
+    private fun delayResultButton(color: Int, s: String) {
+        Completable.timer(RESULT_TOAST_DURATION, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                .subscribe {
+                    showResultButton(color, s)
+                }
+    }
+
+    private fun showResultButton(color: Int, s: String) {
+        shareButton!!.setBackgroundColor(color)
+        shareButton!!.setText(s)
+        shareButton!!.visibility = View.VISIBLE
     }
 
     private fun analyzeResult(results: List<Recognition>?): BugBiteResult {
@@ -349,7 +363,7 @@ class CameraFragment : Fragment(), ConfettiView {
                 .setProgressBarColor(Color.WHITE)
                 .setIconResource(resultIcon)
                 .setText(message)
-                .setDuration(Style.DURATION_MEDIUM)
+                .setDuration(RESULT_TOAST_DURATION.toInt())
                 .setFrame(Style.FRAME_LOLLIPOP)
                 .setColor(color)
                 .setAnimations(Style.ANIMATIONS_POP).show()
@@ -532,6 +546,8 @@ class CameraFragment : Fragment(), ConfettiView {
         val MIN_TASK_TIME_MS: Long = 3000
 
         private val CONFIDENCE_THRESHOLD = .50f // percentage confidence threshold for significant result.
+
+        val RESULT_TOAST_DURATION = Style.DURATION_MEDIUM.toLong()
 
         fun newInstance(): CameraFragment {
             val fragment = CameraFragment()

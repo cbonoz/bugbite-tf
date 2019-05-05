@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.Button
 import com.bugbite.www.tf.BugApplication
 
@@ -17,6 +18,9 @@ import org.koin.android.ext.android.inject
 import org.koin.core.context.GlobalContext.get
 import com.google.gson.reflect.TypeToken
 import mehdi.sakout.fancybuttons.FancyButton
+import android.webkit.WebSettings
+
+
 
 
 private const val BITE_RESULT_ARG = "param1"
@@ -36,6 +40,7 @@ class BiteResultFragment() : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     lateinit var backButton: FancyButton
+    lateinit var webView: WebView
 
     val gson: Gson by inject()
 
@@ -57,6 +62,11 @@ class BiteResultFragment() : Fragment() {
         backButton.setOnClickListener {
             activity?.onBackPressed()
         }
+        webView = v.findViewById(R.id.webview)
+        val webSettings = webView.getSettings()
+        webSettings.setJavaScriptEnabled(true)
+
+        webView.loadUrl("https://g.co/kgs/C9YzZW")
         return v
     }
 
