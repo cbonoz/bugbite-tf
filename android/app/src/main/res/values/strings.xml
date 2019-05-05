@@ -62,7 +62,7 @@
     <string name="volume_desc">Toggle Volume</string>
     <string name="share_failure">Share Failure</string>
     <string name="share_photo">Share Photo</string>
-    <string name="empty_result_message">Hmm, not sure what this is.</string>
+    <string name="unsure_result">Hmm, not entirely sure what this is.</string>
     <string name="taking_new_screenshot">No screenshot available, taking new screenshot</string>
     <string name="last_classified_image">Last Classified Image</string>
     <string name="target_item">bug bite</string>

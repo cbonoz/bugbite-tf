@@ -157,7 +157,7 @@ class CameraFragment : Fragment(), ConfettiView {
                 delayResultButton(color, getString(R.string.share_photo))
             }
             BugBiteResult.NOT_SURE -> {
-                makeToast(getString(R.string.empty_result_message))
+                makeToast(getString(R.string.unsure_result))
                 val color = resources.getColor(R.color.green)
                 showResultButton(color, getString(R.string.share_photo))
             }
