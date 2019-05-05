@@ -16,7 +16,7 @@ limitations under the License.
 package com.bugbite.www.tf.utils
 
 import android.app.Activity
-import android.content.res.AssetFileDescriptor
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.RectF
 import android.os.SystemClock
@@ -40,7 +40,7 @@ import java.util.PriorityQueue
 abstract class Classifier
 /** Initializes a `Classifier`.  */
 @Throws(IOException::class)
-protected constructor(activity: Activity, device: Device, numThreads: Int) {
+protected constructor(context: Context, device: Device, numThreads: Int) {
 
     /** Preallocated buffers for storing image data in.  */
     private val intValues = IntArray(imageSizeX * imageSizeY)
@@ -167,7 +167,7 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
     }
 
     init {
-        tfliteModel = loadModelFile(activity)
+        tfliteModel = loadModelFile(context)
         when (device) {
             Classifier.Device.NNAPI -> tfliteOptions.setUseNNAPI(true)
             Classifier.Device.GPU -> {
@@ -179,7 +179,7 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
         }
         tfliteOptions.setNumThreads(numThreads)
         interpreter = Interpreter(tfliteModel!!, tfliteOptions)
-        labels = loadLabelList(activity)
+        labels = loadLabelList(context)
         imgData = ByteBuffer.allocateDirect(
                 DIM_BATCH_SIZE
                         * imageSizeX
@@ -192,9 +192,9 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
 
     /** Reads label list from Assets.  */
     @Throws(IOException::class)
-    private fun loadLabelList(activity: Activity): List<String> {
+    private fun loadLabelList(context: Context): List<String> {
         val labels = ArrayList<String>()
-        val reader = BufferedReader(InputStreamReader(activity.assets.open(labelPath)))
+        val reader = BufferedReader(InputStreamReader(context.assets.open(labelPath)))
         var line = reader.readLine()
         while (line != null) {
             labels.add(line)
@@ -206,7 +206,7 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
 
     /** Memory-map the model file in Assets.  */
     @Throws(IOException::class)
-    private fun loadModelFile(activity: Activity): MappedByteBuffer {
+    private fun loadModelFile(activity: Context): MappedByteBuffer {
         val fileDescriptor = activity.assets.openFd(modelPath)
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
         val fileChannel = inputStream.channel
@@ -344,14 +344,14 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
         /**
          * Creates a classifier with the provided configuration.
          *
-         * @param activity The current Activity.
+         * @param context The application context
          * @param device The device to use for classification.
          * @param numThreads The number of threads to use for classification.
          * @return A classifier with the desired configuration.
          */
         @Throws(IOException::class)
-        fun create(activity: Activity, device: Device, numThreads: Int): Classifier {
-            return ClassifierFloatMobileNet(activity, device, numThreads)
+        fun create(context: Context, device: Device, numThreads: Int): Classifier {
+            return ClassifierFloatMobileNet(context, device, numThreads)
         }
     }
 }

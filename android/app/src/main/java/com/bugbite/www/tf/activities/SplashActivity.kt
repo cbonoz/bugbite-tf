@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 
 import com.daimajia.androidanimations.library.Techniques
-import com.bugbite.www.tf.MainActivity
 import com.bugbite.www.tf.R
 
 import wail.splacher.com.splasher.lib.SplasherActivity
@@ -28,7 +27,7 @@ class SplashActivity : SplasherActivity() {
                 .setTitleAnimation(Techniques.Bounce) // title animation ( from Android View Animations ) ..
                 .setTitleSize(24) // title text size ..
                 //---------------
-                .setSubtitle("cookies...") // subtitle
+                .setSubtitle("bugbites...") // subtitle
                 .setSubtitleColor(Color.parseColor("#ffffff")) // subtitle color
                 .setSubtitleAnimation(Techniques.FadeIn).subtitleSize = 16 // subtitle text size ..
         //---------------

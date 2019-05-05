@@ -16,6 +16,7 @@ limitations under the License.
 package com.bugbite.www.tf.utils
 
 import android.app.Activity
+import android.content.Context
 
 import java.io.IOException
 
@@ -27,7 +28,7 @@ class ClassifierFloatMobileNet
  * @param activity
  */
 @Throws(IOException::class)
-constructor(activity: Activity, device: Classifier.Device, numThreads: Int) : Classifier(activity, device, numThreads) {
+constructor(context: Context, device: Device, numThreads: Int) : Classifier(context, device, numThreads) {
 
     /**
      * An array to hold inference results, to be feed into Tensorflow Lite as outputs. This isn't part
