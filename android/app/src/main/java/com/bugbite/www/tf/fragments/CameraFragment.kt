@@ -63,7 +63,7 @@ import java.util.concurrent.TimeUnit
 class CameraFragment : Fragment(), ConfettiView {
 
     private val EXT_STORAGE_CODE = 3
-    private var lastResults: List<Classifier.Recognition>? = null
+    private var lastResults: List<Recognition>? = null
     // Default parameters.
     private val model = Classifier.Model.FLOAT
     private val device = Classifier.Device.CPU
@@ -147,7 +147,7 @@ class CameraFragment : Fragment(), ConfettiView {
             BugBiteResult.IS_BITE -> {
                 // we have at least one confirming bite result in this case.
                 val color = resources.getColor(R.color.md_red_500)
-                showResultToast("Looks like this could be a ${results!!.get(0).title} bite!", color, R.drawable.x_mark_75)
+                showResultToast("Looks like this could be a ${Classifier.getBiteName(results!![0].title)}!", color, R.drawable.x_mark_75)
                 delayResultButton(color, getString(R.string.see_result))
             }
             BugBiteResult.NOT_BITE -> {

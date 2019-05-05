@@ -8,26 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import android.widget.Button
-import com.bugbite.www.tf.BugApplication
 
 import com.bugbite.www.tf.R
 import com.bugbite.www.tf.utils.Classifier
 import com.google.gson.Gson
 import org.koin.android.ext.android.inject
-import org.koin.core.context.GlobalContext.get
 import com.google.gson.reflect.TypeToken
 import mehdi.sakout.fancybuttons.FancyButton
-import android.webkit.WebSettings
-
-
-
+import android.webkit.WebViewClient
+import android.widget.Toast
 
 private const val BITE_RESULT_ARG = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
  * [BiteResultFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
@@ -63,10 +56,13 @@ class BiteResultFragment() : Fragment() {
             activity?.onBackPressed()
         }
         webView = v.findViewById(R.id.webview)
+        webView.webViewClient = BugBiteWebViewClient()
         val webSettings = webView.getSettings()
         webSettings.setJavaScriptEnabled(true)
 
-        webView.loadUrl("https://g.co/kgs/C9YzZW")
+
+        webView.loadUrlForTopResult(activity!!, classifierResults)
+
         return v
     }
 
@@ -89,6 +85,13 @@ class BiteResultFragment() : Fragment() {
         fun onFragmentInteraction(uri: Uri)
     }
 
+    private inner class BugBiteWebViewClient : WebViewClient() {
+        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+            view.loadUrl(url)
+            return true
+        }
+    }
+
     companion object {
 
         @JvmStatic
@@ -100,4 +103,22 @@ class BiteResultFragment() : Fragment() {
             }
         }
     }
+}
+
+private fun WebView.loadUrlForTopResult(context: Context, results: List<Classifier.Recognition>) {
+    if (results.isEmpty()) {
+        Toast.makeText(context, context.getString(R.string.no_results), Toast.LENGTH_SHORT).show()
+    }
+
+    val bestResult = results.get(0)
+
+    val urlMap = mapOf(
+            "spider" to "https://g.co/kgs/C9YzZW",
+            "tick" to "https://www.mayoclinic.org/first-aid/first-aid-tick-bites/basics/art-20056671",
+            "bee" to "https://g.co/kgs/XdXKNX",
+            "mosquito" to "https://www.mayoclinic.org/diseases-conditions/mosquito-bites/diagnosis-treatment/drc-20375314"
+    )
+
+    val resultUrl = urlMap.get(bestResult.title)?:context.getString(R.string.no_result_url)
+    loadUrl(resultUrl)
 }

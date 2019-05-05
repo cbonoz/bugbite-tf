@@ -15,7 +15,6 @@ limitations under the License.
 
 package com.bugbite.www.tf.utils
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.RectF
@@ -179,7 +178,7 @@ protected constructor(context: Context, device: Device, numThreads: Int) {
         }
         tfliteOptions.setNumThreads(numThreads)
         interpreter = Interpreter(tfliteModel!!, tfliteOptions)
-        labels = loadLabelList(context)
+        labels = loadLabelList(context, labelPath)
         imgData = ByteBuffer.allocateDirect(
                 DIM_BATCH_SIZE
                         * imageSizeX
@@ -190,19 +189,6 @@ protected constructor(context: Context, device: Device, numThreads: Int) {
         LOGGER.d("Created a Tensorflow Lite Image Classifier.")
     }
 
-    /** Reads label list from Assets.  */
-    @Throws(IOException::class)
-    private fun loadLabelList(context: Context): List<String> {
-        val labels = ArrayList<String>()
-        val reader = BufferedReader(InputStreamReader(context.assets.open(labelPath)))
-        var line = reader.readLine()
-        while (line != null) {
-            labels.add(line)
-            line = reader.readLine()
-        }
-        reader.close()
-        return labels
-    }
 
     /** Memory-map the model file in Assets.  */
     @Throws(IOException::class)
@@ -352,6 +338,28 @@ protected constructor(context: Context, device: Device, numThreads: Int) {
         @Throws(IOException::class)
         fun create(context: Context, device: Device, numThreads: Int): Classifier {
             return ClassifierFloatMobileNet(context, device, numThreads)
+        }
+
+        /** Reads label list from Assets.  */
+        @Throws(IOException::class)
+        @JvmStatic
+        fun loadLabelList(context: Context, labelPath: String): List<String> {
+            val labels = ArrayList<String>()
+            val reader = BufferedReader(InputStreamReader(context.assets.open(labelPath)))
+            var line = reader.readLine()
+            while (line != null) {
+                labels.add(line)
+                line = reader.readLine()
+            }
+            reader.close()
+            return labels
+        }
+
+        @JvmStatic
+        fun getBiteName(label: String?) = when (label) {
+            null -> "insect bite"
+            "bee" -> "$label sting"
+            else -> "$label bite"
         }
     }
 }

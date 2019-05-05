@@ -73,5 +73,7 @@
     <string name="classification_result">Classification Result!</string>
     <string name="share_text">My Result from Bug Bite AI!</string>
     <string name="back_to_camera">← Back to Camera</string>
+    <string name="no_results">No results found, take another photo in the camera view!</string>
+    <string name="no_result_url">https://www.google.com</string>
 
 </resources>
