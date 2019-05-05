@@ -16,6 +16,7 @@ import org.koin.android.ext.android.inject
 import com.google.gson.reflect.TypeToken
 import mehdi.sakout.fancybuttons.FancyButton
 import android.webkit.WebViewClient
+import android.widget.TextView
 import android.widget.Toast
 
 private const val BITE_RESULT_ARG = "param1"
@@ -34,6 +35,7 @@ class BiteResultFragment() : Fragment() {
 
     lateinit var backButton: FancyButton
     lateinit var webView: WebView
+    lateinit var resultTitle: TextView
 
     val gson: Gson by inject()
 
@@ -52,16 +54,25 @@ class BiteResultFragment() : Fragment() {
         val v = inflater.inflate(R.layout.fragment_bite_result, container, false)
 
         backButton = v.findViewById(R.id.back_button)
+        webView = v.findViewById(R.id.webview)
+        resultTitle = v.findViewById(R.id.result_title)
+
         backButton.setOnClickListener {
             activity?.onBackPressed()
         }
-        webView = v.findViewById(R.id.webview)
+
         webView.webViewClient = BugBiteWebViewClient()
         val webSettings = webView.getSettings()
         webSettings.setJavaScriptEnabled(true)
 
+        if (classifierResults.isEmpty()) {
+            Toast.makeText(context, context!!.getString(R.string.no_results), Toast.LENGTH_SHORT).show()
+            return v
+        }
 
-        webView.loadUrlForTopResult(activity!!, classifierResults)
+        val topResult = classifierResults[0]
+        webView.loadUrlForTopResult(activity!!, topResult)
+        resultTitle.text = topResult.title
 
         return v
     }
@@ -105,12 +116,8 @@ class BiteResultFragment() : Fragment() {
     }
 }
 
-private fun WebView.loadUrlForTopResult(context: Context, results: List<Classifier.Recognition>) {
-    if (results.isEmpty()) {
-        Toast.makeText(context, context.getString(R.string.no_results), Toast.LENGTH_SHORT).show()
-    }
+private fun WebView.loadUrlForTopResult(context: Context, topResult: Classifier.Recognition) {
 
-    val bestResult = results.get(0)
 
     val urlMap = mapOf(
             "spider" to "https://g.co/kgs/C9YzZW",
@@ -119,6 +126,6 @@ private fun WebView.loadUrlForTopResult(context: Context, results: List<Classifi
             "mosquito" to "https://www.mayoclinic.org/diseases-conditions/mosquito-bites/diagnosis-treatment/drc-20375314"
     )
 
-    val resultUrl = urlMap.get(bestResult.title)?:context.getString(R.string.no_result_url)
+    val resultUrl = urlMap.get(topResult.title)?:context.getString(R.string.no_result_url)
     loadUrl(resultUrl)
 }
