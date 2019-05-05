@@ -121,7 +121,7 @@ private fun WebView.loadUrlForTopResult(context: Context, topResult: Classifier.
 
     val urlMap = mapOf(
             "spider" to "https://g.co/kgs/C9YzZW",
-            "tick" to "https://www.mayoclinic.org/first-aid/first-aid-tick-bites/basics/art-20056671",
+            "ticks" to "https://www.mayoclinic.org/first-aid/first-aid-tick-bites/basics/art-20056671",
             "bee" to "https://g.co/kgs/XdXKNX",
             "mosquito" to "https://www.mayoclinic.org/diseases-conditions/mosquito-bites/diagnosis-treatment/drc-20375314"
     )
