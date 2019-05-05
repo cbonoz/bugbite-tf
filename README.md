@@ -11,8 +11,10 @@ or irrations on the skin quickly find answers or medical treatment by a professi
 
  One of my friends came back from Asia a couple months ago and got bunch of bug bites, and she was afraid whether or not she caught malaria.
  I thought that we can use techniques in AI to classify bug bites, as well as using tele-medicine to communicate with a dermatologist to validate the bite.
+
+ Unaddressed or untreated bites in dangerous settings can be dangerous; having more advanced diagnostic tools in the field can potentially save lives:
  
-<img src="./img/chart.png" width="400"/>
+<img src="./img/chart.png" width="600"/>
 
 ## What it does
 
@@ -21,7 +23,7 @@ with about a 70% accuracy amongst the 5 labels.
 
 People who travels, or places with deadly mosquitos such as zika or west nile.  This would give patients immediate relief.  Insurance company pays for tele medicine.  And just about any aid workers who goes to African jungles. The app could later incorporate recommended products for treating the various ailments to earn affiliate revenue - for example, recommending a particular lotion for reducing the inflammation of a spider bite. Telehealth could also be incoporated into the final app and allow users to connect with Dermatologists or other professionals in the field.
 
-<img src="./img/accuracy.png" width="400"/>
+<img src="./img/accuracy.png" width="600"/>
 
 ## How I built it
 
@@ -35,13 +37,13 @@ Collected a small dataset of labeled images in common bug bite categories that a
 
 and of course labels for the control group where there are no bites present.
 
-<img src="./img/tf_files.png" width="400"/>
+<img src="./img/tf_files.png" width="600"/>
 
 Once these images were collected, they were resized to fit the 224x224 model input format (using `resize.py`)
 
 The output graph was constructed and converted using the latest tfnightly build (`convert.py`).
 
-<img src="./img/accuracy.png" width="400"/>
+<img src="./img/accuracy.png" width="600"/>
 
 ## Challenges I ran into
 
@@ -55,13 +57,12 @@ and thousands of individual examples.
 * Release the working model/app onto the Google Play Store (with appropriate medical usage disclaimer).
 * Better classify images based on skin types - potentially solvable by obtaining more training samples.
 
-<img src="./img/future.png" width="400"/>
+<img src="./img/future.png" width="600"/>
 
 There’s also time aspects of bug bites - how does the app deal with time evolution after the bite has occurred and the person’s particular background and individual immunity response to the bite?
 We only classify the bug bite, the time evolution will be part of our training for AI, the AI will recognize different time series just like if the skin cancer spread, it would still be picked up by AI, it would actually be easier.
 
-<img src="./img/business.png" width="400"/>
-
+<img src="./img/business.png" width="600"/>
 
 ### Model
 
